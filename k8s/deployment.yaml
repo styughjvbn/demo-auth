@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: demo-auth
-        image: demo-auth:local
+        image: ghcr.io/styughjvbn/demo-auth:0.1.0
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8000
