@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: auth
+  namespace: auth
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+    spec:
+      containers:
+      - name: demo-auth
+        image: demo-auth:local
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8000
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 8000
+          initialDelaySeconds: 15
+          periodSeconds: 20
+        env:
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: demo-auth-secret
+              key: jwt-secret
+        - name: COOKIE_DOMAIN
+          value: .sjw-project.site
+        - name: ALLOWED_ORIGINS
+          value: https://auth.sjw-project.site,https://coco.sjw-project.site
