@@ -22,18 +22,20 @@ export const DemoHeaderView = ({
 
   return (
     <div className={`demo-header-shell ${expanded ? "demo-header-shell--expanded" : ""}`}>
-      <button
-        className="demo-header-toggle"
-        type="button"
-        onClick={() => setExpanded((nextExpanded) => !nextExpanded)}
-        aria-expanded={expanded}
-        aria-controls="demo-header-panel"
-      >
-        <span className="demo-header-toggle__mark" aria-hidden="true">
-          {expanded ? "×" : "Demo"}
-        </span>
-        <span className="demo-header-toggle__status">{statusLabel}</span>
-      </button>
+      {!expanded ? (
+        <button
+          className="demo-header-toggle"
+          type="button"
+          onClick={() => setExpanded(true)}
+          aria-expanded={expanded}
+          aria-controls="demo-header-panel"
+        >
+          <span className="demo-header-toggle__mark" aria-hidden="true">
+            Demo
+          </span>
+          <span className="demo-header-toggle__status">{statusLabel}</span>
+        </button>
+      ) : null}
 
       {expanded ? (
         <header className="demo-header" id="demo-header-panel">
@@ -79,6 +81,14 @@ export const DemoHeaderView = ({
                 임시 로그인
               </button>
             )}
+            <button
+              className="demo-header__collapse-button"
+              type="button"
+              onClick={() => setExpanded(false)}
+              aria-label="Demo header collapse"
+            >
+              ×
+            </button>
           </div>
         </header>
       ) : null}

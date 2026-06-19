@@ -1,6 +1,6 @@
 {
   "name": "@sjw-project/demo-header",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Shared demo authentication header for sjw-project demo apps.",
   "type": "module",
   "main": "./dist/demo-header.umd.cjs",
@@ -21,6 +21,7 @@
   },
   "scripts": {
     "build": "vite build && cp index.d.ts dist/index.d.ts",
+    "dev:demo": "vite demo --host 0.0.0.0",
     "prepack": "npm run build",
     "pack:local": "npm pack"
   },
