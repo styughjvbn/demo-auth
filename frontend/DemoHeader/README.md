@@ -9,30 +9,18 @@
 - 브라우저에서 인증 서버 쿠키를 주고받을 수 있는 CORS 및 쿠키 설정
 - 기본 인증 서버: `https://auth.sjw-project.site`
 
-## 패키지 만들기
-
-아직 npm registry에 배포하지 않는 경우, 로컬 tarball을 만들어 다른 프로젝트에 설치합니다.
-
-```bash
-cd frontend/DemoHeader
-npm install
-npm run pack:local
-```
-
-`npm run pack:local`은 패키징 전에 자동으로 `npm run build`를 실행합니다. 명령이 끝나면 `sjw-project-demo-header-0.1.0.tgz` 파일이 생성됩니다.
-
 ## 설치
 
 사용할 React 프로젝트에서 tarball을 설치합니다.
 
 ```bash
-npm install /path/to/sjw-project-demo-header-0.1.0.tgz
+npm install /path/to/sjw-project-demo-header-0.1.2.tgz
 ```
 
 예를 들어 같은 서버의 다른 프로젝트에서 설치한다면 실제 tarball 경로를 넘기면 됩니다.
 
 ```bash
-npm install /home/developer/projects/demo-auth/demo-auth/frontend/DemoHeader/sjw-project-demo-header-0.1.0.tgz
+npm install /home/developer/projects/demo-auth/demo-auth/frontend/DemoHeader/sjw-project-demo-header-0.1.2.tgz
 ```
 
 ## 기본 사용법
