@@ -78,11 +78,20 @@ pytest
 
 ## DemoHeader
 
-React 또는 Next.js 프로젝트에 `frontend/react/DemoHeader.tsx`와
-`frontend/react/DemoHeader.module.css`를 복사한 뒤 라우터 바깥에 배치합니다.
+공통 헤더는 `frontend/DemoHeader`에서 라이브러리처럼 빌드할 수 있습니다.
 
-```tsx
-import DemoHeader from "./components/DemoHeader";
+```bash
+cd frontend/DemoHeader
+npm install
+npm run build
+npm run pack:local
+```
+
+다른 React 프로젝트에서는 생성된 tarball을 설치한 뒤 라우터 바깥에 배치합니다.
+
+```jsx
+import DemoHeader from "@sjw-project/demo-header";
+import "@sjw-project/demo-header/style.css";
 
 export default function App() {
   return (
@@ -94,8 +103,10 @@ export default function App() {
 }
 ```
 
-Next.js App Router에서도 같은 컴포넌트를 사용할 수 있습니다. 컴포넌트 상단에
-`"use client"`가 포함되어 있습니다.
+COCO처럼 앱 내부 로그인 상태와 동기화해야 하는 프로젝트는
+`DemoHeaderView`와 `useDemoAuth`를 재사용하고, 프로젝트별 Redux/store 연동만
+얇은 래퍼에 둡니다. 자세한 export와 로컬 설치 방법은
+`frontend/DemoHeader/README.md`를 참고하세요.
 
 ## Docker
 
