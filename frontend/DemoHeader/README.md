@@ -1,6 +1,6 @@
 # @sjw-project/demo-header
 
-`@sjw-project/demo-header`는 `sjw-project.site` 데모 서비스들이 공통으로 사용할 수 있는 React 헤더 라이브러리입니다. 헤더는 데모 프로젝트 링크를 보여주고, 공통 인증 서버의 `/api/me`, `/api/demo-login`, `/api/logout` API를 호출해 임시 로그인 상태를 표시합니다.
+`@sjw-project/demo-header`는 `sjw-project.site` 데모 서비스들이 공통으로 사용할 수 있는 React 헤더 라이브러리입니다. 헤더는 데모 프로젝트 링크를 보여주고, 공통 인증 서버의 `/api/projects`, `/api/me`, `/api/demo-login`, `/api/logout` API를 호출해 프로젝트 목록과 임시 로그인 상태를 표시합니다.
 
 ## 요구사항
 
@@ -37,7 +37,7 @@ npm install /home/developer/projects/demo-auth/demo-auth/frontend/DemoHeader/sjw
 
 ## 기본 사용법
 
-라우터보다 바깥, 앱 최상단에 `DemoHeader`를 배치합니다. CSS 파일도 함께 import해야 스타일이 적용됩니다.
+라우터보다 바깥, 앱 최상단에 `DemoHeader`를 배치합니다. CSS 파일도 함께 import해야 스타일이 적용됩니다. 기본 상태는 접힘입니다.
 
 ```jsx
 import DemoHeader from "@sjw-project/demo-header";
@@ -53,6 +53,12 @@ export default function App() {
 }
 ```
 
+처음부터 펼친 상태로 보여줘야 하면 `defaultExpanded` 사용.
+
+```jsx
+<DemoHeader defaultExpanded />
+```
+
 ## 인증 서버 변경
 
 기본값은 `https://auth.sjw-project.site`입니다. 다른 인증 서버를 사용해야 하면 `apiBaseUrl`을 넘깁니다.
@@ -63,19 +69,25 @@ export default function App() {
 
 헤더는 다음 API를 호출합니다.
 
+- `GET {apiBaseUrl}/api/projects`
 - `GET {apiBaseUrl}/api/me`
 - `POST {apiBaseUrl}/api/demo-login`
 - `POST {apiBaseUrl}/api/logout`
 
 모든 요청은 `credentials: "include"`로 실행되므로 인증 서버는 쿠키 기반 인증과 cross-site 요청 설정을 올바르게 제공해야 합니다.
 
-## 프로젝트 링크 변경
+## 프로젝트 링크 관리
 
-헤더 왼쪽의 프로젝트 링크는 `projects` prop으로 바꿀 수 있습니다.
+기본값은 인증 서버의 `GET /api/projects` 응답입니다. 데모가 늘어나면 라이브러리를 다시 빌드하지 말고 auth 서버의 `DEMO_PROJECTS` 환경변수만 수정합니다.
+
+```env
+DEMO_PROJECTS=[{"name":"COCO","url":"https://coco.sjw-project.site"},{"name":"Demo A","url":"https://demo-a.sjw-project.site"}]
+```
+
+특정 앱에서만 목록을 덮어써야 하면 `projects` prop 사용.
 
 ```jsx
 const projects = [
-  { name: "Demo Home", url: "https://auth.sjw-project.site" },
   { name: "COCO", url: "https://coco.sjw-project.site" },
   { name: "Demo A", url: "https://demo-a.sjw-project.site" },
 ];
@@ -176,6 +188,11 @@ const authClient = {
     const response = await fetch("/auth/me", { credentials: "include" });
     return response.json();
   },
+  async fetchProjects() {
+    const response = await fetch("/auth/projects", { credentials: "include" });
+    const data = await response.json();
+    return data.projects;
+  },
   async login() {
     await fetch("/auth/demo-login", {
       method: "POST",
@@ -211,7 +228,7 @@ import "@sjw-project/demo-header/style.css";
 ```
 
 - `DemoHeader`: 기본 export입니다. `DemoHeaderStandalone`과 같습니다.
-- `DemoHeaderStandalone`: 기본 인증 클라이언트를 사용하는 완성형 헤더입니다.
+- `DemoHeaderStandalone`: 기본 인증 클라이언트를 사용하는 완성형 헤더입니다. 기본은 접힘이며 `defaultExpanded`로 초기 펼침 가능.
 - `DemoHeaderView`: 상태와 핸들러를 prop으로 받는 순수 UI 컴포넌트입니다.
 - `createDemoAuthClient(apiBaseUrl?)`: 기본 인증 API 호출 클라이언트를 만듭니다.
 - `useDemoAuth({ authClient, onMeChanged? })`: 인증 상태 조회, 로그인, 로그아웃 흐름을 관리합니다.
@@ -239,6 +256,7 @@ type DemoMe = {
 ## 문제 해결
 
 - 스타일이 적용되지 않으면 `import "@sjw-project/demo-header/style.css";`가 있는지 확인합니다.
+- 프로젝트 링크가 비어 있으면 auth 서버의 `GET /api/projects` 응답과 `DEMO_PROJECTS` 환경변수를 확인합니다.
 - 로그인 상태가 계속 `비로그인`이면 인증 서버의 쿠키 도메인, `SameSite=None`, `Secure`, CORS `credentials` 설정을 확인합니다.
 - Next.js에서 `window is not defined` 문제가 나면 서버 컴포넌트에서 직접 렌더링하지 말고 `"use client"` 래퍼 안에서 렌더링합니다.
 - tarball 설치 후 수정 사항이 반영되지 않으면 `frontend/DemoHeader`에서 `npm run pack:local`을 다시 실행하고, 사용하는 프로젝트에서 생성된 `.tgz`를 다시 설치합니다.

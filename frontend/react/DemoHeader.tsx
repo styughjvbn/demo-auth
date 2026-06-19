@@ -26,10 +26,7 @@ type DemoHeaderProps = {
 
 const DEFAULT_API_BASE_URL = "https://auth.sjw-project.site";
 
-const DEFAULT_PROJECTS: DemoProject[] = [
-  { name: "Demo Home", url: "https://auth.sjw-project.site" },
-  { name: "COCO", url: "https://coco.sjw-project.site" },
-];
+const DEFAULT_PROJECTS: DemoProject[] = [];
 
 export function DemoHeader({
   apiBaseUrl = DEFAULT_API_BASE_URL,

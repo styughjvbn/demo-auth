@@ -1,7 +1,4 @@
-export const DEFAULT_PROJECTS = [
-  { name: "Demo Home", url: "https://auth.sjw-project.site" },
-  { name: "COCO", url: "https://coco.sjw-project.site" },
-];
+export const DEFAULT_PROJECTS = [];
 
 export const EMPTY_ME = { loggedIn: false, user: null };
 

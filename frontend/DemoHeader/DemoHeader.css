@@ -1,15 +1,10 @@
-.demo-header {
-  position: sticky;
+.demo-header-shell {
+  position: fixed;
   top: 0;
+  right: 0;
+  left: 0;
   z-index: 1100;
-  display: flex;
-  min-height: 48px;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  padding: 8px 16px;
-  border-bottom: 1px solid #d9dee7;
-  background: #ffffff;
+  pointer-events: none;
   color: #172033;
   font-family:
     system-ui,
@@ -17,6 +12,63 @@
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
+}
+
+.demo-header-toggle {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: inline-flex;
+  max-width: calc(100vw - 16px);
+  min-height: 32px;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #cbd3df;
+  border-radius: 6px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgb(15 23 42 / 12%);
+  color: #26364d;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0 10px;
+  pointer-events: auto;
+}
+
+.demo-header-toggle:hover {
+  border-color: #7b8da8;
+  background: #f3f6fa;
+}
+
+.demo-header-toggle__mark,
+.demo-header-toggle__status {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.demo-header-toggle__mark {
+  color: #0d47b7;
+}
+
+.demo-header-toggle__status {
+  max-width: 140px;
+  color: #36445a;
+  font-weight: 600;
+}
+
+.demo-header {
+  display: flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 8px 16px;
+  border-bottom: 1px solid #d9dee7;
+  box-shadow: 0 4px 14px rgb(15 23 42 / 10%);
+  background: #ffffff;
+  pointer-events: auto;
 }
 
 .demo-header__nav {
@@ -98,6 +150,11 @@
 }
 
 @media (max-width: 640px) {
+  .demo-header-toggle {
+    top: 6px;
+    right: 6px;
+  }
+
   .demo-header {
     align-items: stretch;
     flex-direction: column;

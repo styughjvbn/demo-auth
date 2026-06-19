@@ -21,6 +21,11 @@ export const createDemoAuthClient = (apiBaseUrl = DEFAULT_API_BASE_URL) => {
       const response = await request(`${normalizedApiBaseUrl}/api/me`);
       return response.json();
     },
+    async fetchProjects() {
+      const response = await request(`${normalizedApiBaseUrl}/api/projects`);
+      const data = await response.json();
+      return Array.isArray(data.projects) ? data.projects : [];
+    },
     async login() {
       await request(`${normalizedApiBaseUrl}/api/demo-login`, {
         method: "POST",

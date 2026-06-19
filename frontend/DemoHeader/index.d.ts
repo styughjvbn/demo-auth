@@ -18,6 +18,7 @@ export type DemoProject = {
 
 export type DemoAuthClient = {
   fetchMe: () => Promise<DemoMe>;
+  fetchProjects?: () => Promise<DemoProject[]>;
   login: () => Promise<void>;
   logout: () => Promise<void>;
   subscribe?: (listener: () => void) => (() => void) | undefined;
@@ -26,6 +27,7 @@ export type DemoAuthClient = {
 export type DemoHeaderStandaloneProps = {
   apiBaseUrl?: string;
   projects?: DemoProject[];
+  defaultExpanded?: boolean;
 };
 
 export type DemoHeaderViewProps = {
@@ -36,6 +38,7 @@ export type DemoHeaderViewProps = {
   error: string | null;
   onDemoLogin: () => void;
   onLogout: () => void;
+  defaultExpanded?: boolean;
 };
 
 export type UseDemoAuthOptions = {
