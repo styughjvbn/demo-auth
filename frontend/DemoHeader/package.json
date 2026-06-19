@@ -1,0 +1,37 @@
+{
+  "name": "@sjw-project/demo-header",
+  "version": "0.1.0",
+  "description": "Shared demo authentication header for sjw-project demo apps.",
+  "type": "module",
+  "main": "./dist/demo-header.umd.cjs",
+  "module": "./dist/demo-header.js",
+  "types": "./dist/index.d.ts",
+  "style": "./dist/style.css",
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/demo-header.js",
+      "require": "./dist/demo-header.umd.cjs"
+    },
+    "./style.css": "./dist/style.css"
+  },
+  "scripts": {
+    "build": "vite build && cp index.d.ts dist/index.d.ts",
+    "prepack": "npm run build",
+    "pack:local": "npm pack"
+  },
+  "peerDependencies": {
+    "react": ">=18.0.0",
+    "react-dom": ">=18.0.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^6.0.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "vite": "^8.0.16"
+  }
+}
