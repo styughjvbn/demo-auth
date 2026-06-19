@@ -21,6 +21,10 @@ def create_app() -> FastAPI:
     def healthz() -> dict[str, str]:
         return {"status": "ok"}
 
+    @app.get("/api/projects")
+    def projects(current_settings: Settings = Depends(get_settings)) -> dict[str, list[dict[str, str]]]:
+        return {"projects": current_settings.projects}
+
     @app.post("/api/demo-login")
     def demo_login(response: Response, current_settings: Settings = Depends(get_settings)) -> dict[str, dict[str, str]]:
         user = create_temp_user()
@@ -68,4 +72,3 @@ def create_app() -> FastAPI:
 
 
 app = create_app()
-

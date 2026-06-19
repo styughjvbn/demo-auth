@@ -13,6 +13,19 @@ def test_me_returns_logged_out_without_cookie() -> None:
     assert response.json() == {"loggedIn": False, "user": None}
 
 
+def test_projects_returns_configured_demo_projects() -> None:
+    client = TestClient(app)
+
+    response = client.get("/api/projects")
+
+    assert response.status_code == 200
+    assert response.json() == {
+        "projects": [
+            {"name": "COCO", "url": "https://coco.sjw-project.site"},
+        ],
+    }
+
+
 def test_demo_login_sets_cookie_and_me_returns_user() -> None:
     client = TestClient(app, base_url="https://auth.sjw-project.site")
     settings = get_settings()
@@ -58,4 +71,3 @@ def test_cors_allows_configured_origin_with_credentials() -> None:
     assert response.status_code == 200
     assert response.headers["access-control-allow-origin"] == "https://coco.sjw-project.site"
     assert response.headers["access-control-allow-credentials"] == "true"
-

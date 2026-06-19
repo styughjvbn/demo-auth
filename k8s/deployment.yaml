@@ -41,3 +41,5 @@ spec:
           value: .sjw-project.site
         - name: ALLOWED_ORIGINS
           value: https://auth.sjw-project.site,https://coco.sjw-project.site
+        - name: DEMO_PROJECTS
+          value: '[{"name":"COCO","url":"https://coco.sjw-project.site"}]'

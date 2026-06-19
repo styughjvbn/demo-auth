@@ -48,6 +48,21 @@
 
 `DEMO_TOKEN` 쿠키를 만료시킵니다.
 
+### `GET /api/projects`
+
+상단바에 표시할 데모 프로젝트 목록을 반환합니다.
+
+```json
+{
+  "projects": [
+    {
+      "name": "COCO",
+      "url": "https://coco.sjw-project.site"
+    }
+  ]
+}
+```
+
 ## 환경 변수
 
 | 이름 | 기본값 | 설명 |
@@ -60,6 +75,7 @@
 | `COOKIE_SAMESITE` | `lax` | SameSite 정책 |
 | `TOKEN_TTL_SECONDS` | `86400` | 토큰 TTL |
 | `ALLOWED_ORIGINS` | `https://auth.sjw-project.site,https://coco.sjw-project.site` | credentials CORS 허용 origin 목록 |
+| `DEMO_PROJECTS` | `[{"name":"COCO","url":"https://coco.sjw-project.site"}]` | DemoHeader에 표시할 프로젝트 목록 JSON |
 
 ## 로컬 실행
 
